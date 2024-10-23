@@ -30,6 +30,12 @@ tasks.withType<Jar> {
     from(configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) })
 }
 
+tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    manifest {
+        attributes["Main-Class"] = "com.example.Main"
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
