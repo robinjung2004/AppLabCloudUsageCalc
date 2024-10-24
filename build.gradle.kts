@@ -1,5 +1,3 @@
-import org.codehaus.groovy.tools.shell.util.Logger.io
-
 plugins {
     id("java")
     application
@@ -22,28 +20,12 @@ application {
     mainClass.set("com.example.Main")
 }
 
-tasks.withType<Jar> {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    manifest {
-        attributes["Main-Class"] = "com.example.Main"
-    }
-    from(configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) })
-}
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
+    archiveBaseName.set("CloudUsageCalculator")
+    archiveClassifier.set("")
+    archiveVersion.set("1.0-SNAPSHOT")
     manifest {
         attributes["Main-Class"] = "com.example.Main"
-    }
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks {
-    shadowJar {
-        archiveBaseName.set("CloudUsageCalculator")
-        archiveClassifier.set("")
-        archiveVersion.set("1.0-SNAPSHOT")
     }
 }
